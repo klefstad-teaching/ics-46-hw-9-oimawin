@@ -11,3 +11,11 @@ TEST(WordLadder, load_words) {
   load_words(word_list, file_name);
   EXPECT_EQ(word_list.size(), word_count);
 }
+
+TEST(WordLadder, print_word_ladder) {
+  vector<string> ladder = {"a", "b", "c", "d"};
+  testing::internal::CaptureStdout();
+  print_word_ladder(ladder);
+  string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "a -> b -> c -> d");
+}

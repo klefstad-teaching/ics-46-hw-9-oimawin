@@ -10,3 +10,10 @@ void load_words(set<string> & word_list, const string& file_name) {
         word_list.insert(word);
     in.close();
 }
+
+void print_word_ladder(const vector<string>& ladder) {
+    vector<string>::const_iterator it = ladder.cbegin();
+    cout << *(it++);
+    for (it; it != ladder.end(); ++it)
+        cout << " -> " << *it;
+}
