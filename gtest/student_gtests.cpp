@@ -19,3 +19,21 @@ TEST(WordLadder, print_word_ladder) {
   string output = testing::internal::GetCapturedStdout();
   EXPECT_EQ(output, "a -> b -> c -> d");
 }
+
+TEST(WordLadder, valid_ladder_input_success) {
+  set<string> word_list;
+  load_words(word_list, file_name);
+  valid_ladder_input("ring", "worm", word_list);
+}
+
+TEST(WordLadder, valid_ladder_input_begin_end_same) {
+  set<string> word_list;
+  load_words(word_list, file_name);
+  valid_ladder_input("ring", "ring", word_list);
+}
+
+TEST(WordLadder, valid_ladder_input_end_word_fail) {
+  set<string> word_list;
+  load_words(word_list, file_name);
+  valid_ladder_input("ring", "s;ldkfja;lskdfj", word_list);
+}
