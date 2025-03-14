@@ -37,3 +37,13 @@ TEST(WordLadder, valid_ladder_input_end_word_fail) {
   load_words(word_list, file_name);
   valid_ladder_input("ring", "s;ldkfja;lskdfj", word_list);
 }
+
+TEST(WordLadder, is_adjacent) {
+  EXPECT_TRUE(is_adjacent("word", "word"));
+  EXPECT_TRUE(is_adjacent("word", "words"));
+  EXPECT_TRUE(is_adjacent("word", "ward"));
+  EXPECT_TRUE(is_adjacent("word", "wrd"));
+  EXPECT_FALSE(is_adjacent("word", "wording"));
+  EXPECT_FALSE(is_adjacent("word", "brother"));
+  EXPECT_FALSE(is_adjacent("word", "sin"));
+}
