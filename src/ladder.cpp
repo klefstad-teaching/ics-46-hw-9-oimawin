@@ -34,7 +34,28 @@ bool is_adjacent(const string& word1, const string& word2) {
     return d[word1_len][word2_len] < 2;
 }
 
-
+vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
+    queue<vector<string>> ladder_q;
+    ladder_q.push({begin_word});
+    set<string> visited = {begin_word};
+    while (!ladder_q.empty()) {
+        vector<string> ladder = ladder_q.front();
+        ladder_q.pop();
+        string last_word = ladder[ladder.size() - 1];
+        for (string word : word_list)
+            if (is_adjacent(last_word, word))
+                if (!visited.contains(word)) {
+                    visited.insert(word);
+                    vector<string> new_ladder(ladder);
+                    new_ladder.push_back(word);
+                    if (word == end_word)
+                        return new_ladder;
+                    ladder_q.push(new_ladder);
+                }
+    }
+    vector<string> empty;
+    return empty;
+}
 
 void load_words(set<string> & word_list, const string& file_name) {
     ifstream in(file_name);

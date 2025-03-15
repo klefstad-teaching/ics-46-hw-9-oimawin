@@ -47,3 +47,12 @@ TEST(WordLadder, is_adjacent) {
   EXPECT_FALSE(is_adjacent("word", "brother"));
   EXPECT_FALSE(is_adjacent("word", "sin"));
 }
+
+TEST(WordLadder, generate_word_ladder) {
+  set<string> word_list;
+  load_words(word_list, file_name);
+  testing::internal::CaptureStdout();
+  print_word_ladder(generate_word_ladder("car", "cheat", word_list));
+  string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "car -> cat -> chat -> cheat");
+}
