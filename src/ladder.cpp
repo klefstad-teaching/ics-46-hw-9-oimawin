@@ -1,7 +1,7 @@
 #include "ladder.h"
 
 void error(string word1, string word2, string msg) {
-    cerr << "Error with word ladder [" << word1 << "->" << word2 << "]: " << msg << endl;
+    cerr << "[ERROR] word ladder \'" << word1 << " -> " << word2 << "\': " << msg << endl;
 }
 
 void valid_ladder_input(const string& begin_word, const string& end_word, const set<string>& word_list) {
