@@ -17,21 +17,21 @@ void valid_dict_word(const string& begin_word, const string& end_word, const str
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
     //Wagner-Fischer algorithm for computing edit distance
-    int word1_len = word1.length(), word2_len = word2.length();
+    int word1_len = str1.length(), word2_len = str2.length();
     
-    vector<vector<int>> d(word1_len + 1, vector<int>(word2_len + 1, 0));
+    vector<vector<int>> dist(word1_len + 1, vector<int>(word2_len + 1, 0));
     
-    for (int i = 0; i <= word1_len; ++i) { d[i][0] = i; }
-    for (int j = 0; j <= word2_len; ++j) { d[0][j] = j; }
+    for (int i = 0; i <= word1_len; ++i) { dist[i][0] = i; }
+    for (int j = 0; j <= word2_len; ++j) { dist[0][j] = j; }
 
     for (int i = 1; i <= word1_len; ++i) {
         for (int j = 1; j <= word2_len; ++j) {
-            int substitutionCost = (word1[i - 1] == word2[j - 1]) ? 0 : 1;
-            d[i][j] = min(d[i - 1][j] + 1, min(d[i][j - 1] + 1, d[i - 1][j - 1] + substitutionCost));
+            int substitutionCost = (str1[i - 1] == str2[j - 1]) ? 0 : 1;
+            dist[i][j] = min(dist[i - 1][j] + 1, min(dist[i][j - 1] + 1, dist[i - 1][j - 1] + substitutionCost));
         }
     }
 
-    return d[word1_len][word2_len] =< d;
+    return dist[word1_len][word2_len] <= d;
 }
 
 bool is_adjacent(const string& word1, const string& word2) {
