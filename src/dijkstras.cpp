@@ -30,3 +30,19 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     }
     return distances;
 }
+
+vector<int> extract_shortest_path(const vector<int>& distances, const vector<int>& previous, int destination) {
+    stack<int> path;
+    int curr = destination;
+    path.push(destination);
+    for (int prev = previous[destination]; prev != -1; prev = previous[prev]) {
+        path.push(prev);
+        curr = prev;
+    }
+    vector<int> result;
+    while (!path.empty()) {
+        result.push_back(path.top());
+        path.pop();
+    }
+    return result;
+}
