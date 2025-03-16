@@ -18,7 +18,7 @@ void valid_dict_word(const string& begin_word, const string& end_word, const str
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
     //Wagner-Fischer algorithm for computing edit distance
     int str1_len = str1.length(), str2_len = str2.length();
-    if (abs(str2_le - str1_len) > d) { return false; }
+    if (abs(str2_len - str1_len) > d) { return false; }
     
     vector<vector<int>> dist(str1_len + 1, vector<int>(str2_len + 1, 0));
     
