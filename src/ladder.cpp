@@ -15,7 +15,7 @@ void valid_dict_word(const string& begin_word, const string& end_word, const str
         error(begin_word, end_word, "\'" + curr_word + "\' is not a valid dictionary word");
 }
 
-bool is_adjacent(const string& word1, const string& word2) {
+bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
     //Wagner-Fischer algorithm for computing edit distance
     int word1_len = word1.length(), word2_len = word2.length();
     
@@ -31,7 +31,11 @@ bool is_adjacent(const string& word1, const string& word2) {
         }
     }
 
-    return d[word1_len][word2_len] < 2;
+    return d[word1_len][word2_len] =< d;
+}
+
+bool is_adjacent(const string& word1, const string& word2) {
+    return edit_distance_within(word1, word2, 1);
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
