@@ -71,9 +71,9 @@ void load_words(set<string> & word_list, const string& file_name) {
 
 void print_word_ladder(const vector<string>& ladder) {
     vector<string>::const_iterator it = ladder.cbegin();
-    cout << *(it++);
     for (it; it != ladder.end(); ++it)
-        cout << " -> " << *it;
+        cout << *it << " ";
+    cout << endl;
 }
 
 #define my_assert(e) {cout << #e << ((e) ? " passed": " failed") << endl;}

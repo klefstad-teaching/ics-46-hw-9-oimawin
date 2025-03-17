@@ -17,7 +17,7 @@ TEST(WordLadder, print_word_ladder) {
   testing::internal::CaptureStdout();
   print_word_ladder(ladder);
   string output = testing::internal::GetCapturedStdout();
-  string expected = "a -> b -> c -> d";
+  string expected = "a b c d \n";
   EXPECT_EQ(output, expected);
 }
 
