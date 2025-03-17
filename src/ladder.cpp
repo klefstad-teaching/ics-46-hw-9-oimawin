@@ -45,7 +45,7 @@ bool is_adjacent(const string& word1, const string& word2) {
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
-    /* if (valid_ladder_input(begin_word, end_word, word_list)) {
+    if (valid_ladder_input(begin_word, end_word, word_list)) {
         queue<vector<string>> ladder_q;
         ladder_q.push({begin_word});
         set<string> visited = {begin_word};
@@ -64,9 +64,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                         ladder_q.push(new_ladder);
                     }
         }
-    } */
-    valid_ladder_input(begin_word, end_word, word_list);
-
+    }
     vector<string> empty;
     return empty;
 }
@@ -79,8 +77,13 @@ void load_words(set<string> & word_list, const string& file_name) {
 }
 
 void print_word_ladder(const vector<string>& ladder) {
+    if (ladder.size() == 0) {
+        cout << "No word ladder found.\n";
+        return;
+    }
     cout << "Word ladder found: ";
-    for (vector<string>::const_iterator it = ladder.cbegin(); it != ladder.end(); ++it)
+    vector<string>::const_iterator it = ladder.cbegin();
+    for (it; it != ladder.end(); ++it)
         cout << *it << " ";
     cout << endl;
 }
