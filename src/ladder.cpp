@@ -4,15 +4,20 @@ void error(string word1, string word2, string msg) {
     cerr << "[ERROR] word ladder \'" << word1 << " -> " << word2 << "\': " << msg << endl;
 }
 
-void valid_ladder_input(const string& begin_word, const string& end_word, const set<string>& word_list) {
-    if (begin_word == end_word)
+bool valid_ladder_input(const string& begin_word, const string& end_word, const set<string>& word_list) {
+    if (begin_word == end_word){
         error(begin_word, end_word, "Beginning and ending word are the same");
-    valid_dict_word(begin_word, end_word, end_word, word_list);
+        return false;
+    }
+    return valid_dict_word(begin_word, end_word, end_word, word_list);
 }
 
-void valid_dict_word(const string& begin_word, const string& end_word, const string& curr_word, const set<string>& word_list) {
-    if (word_list.find(curr_word) == word_list.end())
+bool valid_dict_word(const string& begin_word, const string& end_word, const string& curr_word, const set<string>& word_list) {
+    if (word_list.find(curr_word) == word_list.end()) {
         error(begin_word, end_word, "\'" + curr_word + "\' is not a valid dictionary word");
+        return false;
+    }
+    return true;
 }
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d) {
@@ -40,23 +45,25 @@ bool is_adjacent(const string& word1, const string& word2) {
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list) {
-    queue<vector<string>> ladder_q;
-    ladder_q.push({begin_word});
-    set<string> visited = {begin_word};
-    while (!ladder_q.empty()) {
-        vector<string> ladder = ladder_q.front();
-        ladder_q.pop();
-        string last_word = ladder[ladder.size() - 1];
-        for (string word : word_list)
-            if (is_adjacent(last_word, word))
-                if (!visited.contains(word)) {
-                    visited.insert(word);
-                    vector<string> new_ladder(ladder);
-                    new_ladder.push_back(word);
-                    if (word == end_word)
-                        return new_ladder;
-                    ladder_q.push(new_ladder);
-                }
+    if (valid_ladder_input(begin_word, end_word, word_list)) {
+        queue<vector<string>> ladder_q;
+        ladder_q.push({begin_word});
+        set<string> visited = {begin_word};
+        while (!ladder_q.empty()) {
+            vector<string> ladder = ladder_q.front();
+            ladder_q.pop();
+            string last_word = ladder[ladder.size() - 1];
+            for (string word : word_list)
+                if (is_adjacent(last_word, word))
+                    if (!visited.contains(word)) {
+                        visited.insert(word);
+                        vector<string> new_ladder(ladder);
+                        new_ladder.push_back(word);
+                        if (word == end_word)
+                            return new_ladder;
+                        ladder_q.push(new_ladder);
+                    }
+        }
     }
     vector<string> empty;
     return empty;
